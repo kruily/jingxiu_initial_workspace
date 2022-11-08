@@ -1,0 +1,16 @@
+Gateway:
+  Listen: 127.0.0.1:8080
+
+DB:
+  Type:     # 数据库类型
+  Version:  # 版本号
+  Source:   # 连接地址
+Cache:
+  Type: ""    # 缓存烈性
+  Version: "" # 版本号
+  Source:     # 连接地址
+Rpc:
+  # some Rpc config
+Jwt:
+  Secret: # jwt 加密盐值
+  Expire: # 过期时间
