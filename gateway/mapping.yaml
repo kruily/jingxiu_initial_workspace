@@ -1,0 +1,25 @@
+Version: v0.0.2 # cli版本验证，不要修改
+
+Mapping:
+  # router 生成匹配关键字，不要修改
+  APIMatchMapping:
+    - "@Group"
+    - "@Route"
+    - "@Method"
+    - "@Middleware"
+    - "@Doc"
+
+  APIMiddlewareMapping:
+    JWT: "middleware.JWTAuth()"
+    Auth: "middleware.UserAuth()"
+    # 可自定义
+
+  APIHandleMapping:
+    APIHandler:
+      - "Create"
+      - "List"
+      - "Info"
+      - "Delete"
+      - "Update"
+      - "Status"
+    # 可自定义添加
