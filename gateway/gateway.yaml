@@ -1,5 +1,5 @@
 Gateway:
-  Listen: 127.0.0.1:8080
+  Listen: 127.0.0.1:8000
 
 DB:
   Type:     # 数据库类型
