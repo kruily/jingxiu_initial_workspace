@@ -11,7 +11,6 @@ Mapping:
 
   APIMiddlewareMapping:
     JWT: "middleware.JWTAuth()"
-    Auth: "middleware.UserAuth()"
     # 可自定义
 
   APIHandleMapping:

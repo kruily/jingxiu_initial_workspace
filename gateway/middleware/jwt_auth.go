@@ -9,7 +9,7 @@
 package middleware
 
 import (
-	"common"
+	"common/jwt"
 	"common/result"
 	"github.com/gin-gonic/gin"
 	"strings"
@@ -34,7 +34,7 @@ func JWTAuth() func(c *gin.Context) {
 			c.Abort()
 			return
 		}
-		mc, ok := common.ParseToken(authHeader)
+		mc, ok := jwt.ParseToken(authHeader)
 		if ok != nil {
 			result.ErrToken.WithMsg("非法token").Response(c)
 			c.Abort()
@@ -51,8 +51,6 @@ func JWTAuth() func(c *gin.Context) {
 		//}
 		c.Set("user", mc.Jwtkey)
 		c.Set("Expires", mc.ExpiresAt)
-		c.Set("admin", mc.Admin)
-		c.Set("auth", mc.Auth)
 		c.Next()
 	}
 }
