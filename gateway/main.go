@@ -9,7 +9,6 @@
 package main
 
 import (
-	"fmt"
 	"gateway/config"
 	"gateway/router"
 	"gateway/services"
@@ -26,8 +25,9 @@ func main() {
 	services.SvcContext = services.NewContext(config.C)
 
 	// 3. start gin router
-	r := router.Server()
-	if err := r.Run(config.C.Gateway.Listen); err != nil {
-		fmt.Printf("startup service failed, err:%v\n\n", err)
-	}
+	r := router.GinApplication()
+	router.Server(r)
+	//if err := r.Run(config.C.Gateway.Listen); err != nil {
+	//	fmt.Printf("startup service failed, err:%v\n\n", err)
+	//}
 }

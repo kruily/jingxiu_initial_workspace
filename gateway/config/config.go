@@ -23,7 +23,9 @@ type (
 	}
 	// Gateway 网关启动地址
 	Gateway struct {
-		Listen string `yaml:"Listen"`
+		ServerName string `yaml:"ServerName"`
+		Version    string `yaml:"Version"`
+		Listen     string `yaml:"Listen"`
 	}
 	// DB  数据库链接配置
 	DB struct {

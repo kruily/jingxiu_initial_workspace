@@ -9,11 +9,20 @@
 package router
 
 import (
+	"context"
+	"fmt"
+	"gateway/config"
 	"gateway/middleware"
 	"github.com/gin-gonic/gin"
+	"log"
+	"net/http"
+	"os"
+	"os/signal"
+	"syscall"
+	"time"
 )
 
-func Server() *gin.Engine {
+func GinApplication() *gin.Engine {
 	//设置gin模式
 	//gin.SetMode(global.VP.GetString("RunMode"))
 	engine := gin.New()
@@ -26,6 +35,27 @@ func Server() *gin.Engine {
 	return engine
 }
 
-func loadRouter(engine *gin.Engine) {
-	// TODO: add your router group...
+func Server(engine *gin.Engine) {
+	fmt.Println("welcome to JINGXIU-CLI!!!")
+	fmt.Printf("%s is starting...\n", config.C.Gateway.ServerName)
+	fmt.Printf("version: %s\n", config.C.Gateway.Version)
+	server := http.Server{
+		Addr:    config.C.Gateway.ServerName,
+		Handler: engine,
+	}
+	go func() {
+		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+			log.Fatalf("server listen err:%s", err)
+		}
+	}()
+	quit := make(chan os.Signal, 1)
+	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
+	// 在此阻塞
+	<-quit
+	ctx, channel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer channel()
+	if err := server.Shutdown(ctx); err != nil {
+		log.Fatal("server shutdown error")
+	}
+	log.Printf("%s exiting...", config.C.Gateway.ServerName)
 }
