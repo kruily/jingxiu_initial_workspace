@@ -1,6 +1,6 @@
 Gateway:
   ServerName: jingxiu-cli-server
-  Version: v0.1.4
+  Version: v0.1.5
   Listen: 127.0.0.1:8000
 
 DB:
