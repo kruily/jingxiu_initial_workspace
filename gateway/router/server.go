@@ -9,11 +9,15 @@
 package router
 
 import (
+	_ "gateway/docs"
+
 	"context"
 	"fmt"
 	"gateway/config"
 	"gateway/middleware"
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	"github.com/swaggo/gin-swagger"
 	"log"
 	"net/http"
 	"os"
@@ -32,6 +36,8 @@ func GinApplication() *gin.Engine {
 	engine.NoRoute(middleware.NoRoute())
 	//	 路由挂载
 	loadRouter(engine)
+	// 开启swagger
+	Swagger(engine)
 	return engine
 }
 
@@ -40,7 +46,7 @@ func Server(engine *gin.Engine) {
 	fmt.Printf("%s is starting...\n", config.C.Gateway.ServerName)
 	fmt.Printf("version: %s\n", config.C.Gateway.Version)
 	server := http.Server{
-		Addr:    config.C.Gateway.ServerName,
+		Addr:    config.C.Gateway.Listen,
 		Handler: engine,
 	}
 	go func() {
@@ -59,3 +65,18 @@ func Server(engine *gin.Engine) {
 	}
 	log.Printf("%s exiting...", config.C.Gateway.ServerName)
 }
+
+func Swagger(e *gin.Engine) {
+	//e.Static("/html","./public")
+	e.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+}
+
+// @Summary $
+// @Description $
+// @Accept json
+// @Produce  json
+// @Param $
+// @Success 200 {object} $ "请求成功"
+// @Failure 400 {object} $ "请求错误"
+// @Router /$ [$]
+// @Middleware []
