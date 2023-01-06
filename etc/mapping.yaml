@@ -1,4 +1,4 @@
-Version: v0.1.8 # cli版本验证，非必要不修改
+Version: v0.1.9 # cli版本验证，非必要不修改
 
 Mapping:
   # router 生成匹配关键字，不要修改
