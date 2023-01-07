@@ -53,6 +53,7 @@ func Server(engine *gin.Engine) {
 		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 			log.Fatalf("server listen err:%s", err)
 		}
+		fmt.Printf("listening in 127.0.0.1: %s\n", config.C.Gateway.Listen)
 	}()
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
@@ -70,13 +71,3 @@ func Swagger(e *gin.Engine) {
 	//e.Static("/html","./public")
 	e.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 }
-
-// @Summary $
-// @Description $
-// @Accept json
-// @Produce  json
-// @Param $
-// @Success 200 {object} $ "请求成功"
-// @Failure 400 {object} $ "请求错误"
-// @Router /$ [$]
-// @Middleware []

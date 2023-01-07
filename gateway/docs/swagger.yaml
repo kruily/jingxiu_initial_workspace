@@ -1,0 +1,10 @@
+basePath: /
+host: 127.0.0.1
+info:
+  contact: {}
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: Swagger API Docs
+paths: {}
+swagger: "2.0"
