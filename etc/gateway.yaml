@@ -3,6 +3,10 @@ Gateway:
   Version: v0.1.7 #当前版本号为模板版本号，可自定义
   Listen: 127.0.0.1:8000
 
+Logger:
+  FilePath: "log"
+  FileName: "latest"
+
 DB:
   Type:     # 数据库类型
   Version:  # 版本号

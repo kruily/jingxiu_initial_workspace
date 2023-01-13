@@ -13,6 +13,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func init() {
+	register(NoRoute, true, 1)
+}
+
 func NoRoute() gin.HandlerFunc {
 
 	return func(c *gin.Context) {

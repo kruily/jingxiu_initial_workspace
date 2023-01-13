@@ -20,6 +20,7 @@ type (
 		Rpc       Rpc     `yaml:"Rpc"`
 		SecretKey string  `yaml:"SecretKey"`
 		Jwt       JWT     `yaml:"Jwt"`
+		Logger    Logger  `yaml:"Logger"`
 	}
 	// Gateway 网关启动地址
 	Gateway struct {
@@ -46,6 +47,10 @@ type (
 	JWT struct {
 		Secret string `yaml:"Secret"`
 		Expire string `yaml:"Expire"`
+	}
+	Logger struct {
+		FilePath string `yaml:"FilePath"`
+		FileName string `yaml:"FileName"`
 	}
 )
 

@@ -9,11 +9,10 @@
 package router
 
 import (
-	_ "gateway/docs"
-
 	"context"
 	"fmt"
 	"gateway/config"
+	_ "gateway/docs"
 	"gateway/middleware"
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
@@ -30,11 +29,9 @@ func GinApplication() *gin.Engine {
 	//设置gin模式
 	//gin.SetMode(global.VP.GetString("RunMode"))
 	engine := gin.New()
-	// 使用日志打印
-	engine.Use(gin.Logger())
-	//定义404中间件
-	engine.NoRoute(middleware.NoRoute())
-	//	 路由挂载
+	// 中间件
+	middleware.UseMiddle(engine)
+	// 路由挂载
 	loadRouter(engine)
 	// 开启swagger
 	Swagger(engine)
