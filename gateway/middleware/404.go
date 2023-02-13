@@ -13,12 +13,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func init() {
-	register(NoRoute, true, 1)
-}
-
 func NoRoute() gin.HandlerFunc {
-
 	return func(c *gin.Context) {
 		// 抛出 404 路由不存在
 		result.ErrNoRoute.Response(c)

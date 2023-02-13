@@ -6,6 +6,7 @@
 jingxiu_initial_workspace
     - common        # 公用组件层
     - data          # 数据交互层
+    - etc           # 配置信息
     - gateway       # 网络服务层
     - services      # 微服务层
 ```

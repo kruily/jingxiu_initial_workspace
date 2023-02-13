@@ -29,12 +29,14 @@ func GinApplication() *gin.Engine {
 	//设置gin模式
 	//gin.SetMode(global.VP.GetString("RunMode"))
 	engine := gin.New()
-	// 中间件
+	// 全局中间件
 	middleware.UseMiddle(engine)
-	// 路由挂载
-	loadRouter(engine)
+	// 定义404中间件
+	engine.NoRoute(middleware.NoRoute())
 	// 开启swagger
 	Swagger(engine)
+	// 路由挂载
+	loadRouter(engine)
 	return engine
 }
 
@@ -47,10 +49,10 @@ func Server(engine *gin.Engine) {
 		Handler: engine,
 	}
 	go func() {
+		fmt.Printf("listening in 127.0.0.1: %s\n", config.C.Gateway.Listen)
 		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 			log.Fatalf("server listen err:%s", err)
 		}
-		fmt.Printf("listening in 127.0.0.1: %s\n", config.C.Gateway.Listen)
 	}()
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)

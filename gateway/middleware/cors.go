@@ -15,7 +15,7 @@ import (
 )
 
 func init() {
-	register(Cors, true, 2)
+	register(Cors, true, 1)
 }
 
 func Cors() gin.HandlerFunc {

@@ -1,17 +1,20 @@
 Version: v0.1.9 # cli版本验证，非必要不修改
 
+ConfigPath: \\etc
+HandlePath: \\gateway\\handle
+RouterPath: \\gateway\\router
+DocsPath: \\gateway\\docs
+MiddlewarePath: \\gateway\\middleware
+
 Mapping:
   # router 生成匹配关键字，不要修改
   APIMatchMapping:
-    #    - "@Group"
-    #    - "@Route"
-    #    - "@Method"
-    #    - "@Doc"
     - "@Handle"
     - "@Router"
     - "@Middleware"
     - "@Summary"
 
+  # 中间件匹配配置项
   APIMiddlewareMapping:
     JWT: "middleware.JWTAuth()"
     # 可自定义
@@ -22,6 +25,13 @@ Mapping:
       - "List"
       - "Info"
       - "Delete"
+      - "Update"
+      - "Status"
+
+    UserAPI:
+      - "Register"
+      - "Login"
+      - "Userinfo"
       - "Update"
       - "Status"
     # 可自定义添加

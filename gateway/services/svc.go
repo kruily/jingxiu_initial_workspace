@@ -9,21 +9,22 @@
 package services
 
 import (
+	"common/log"
 	"gateway/config"
-	"go.uber.org/zap"
+	"github.com/sirupsen/logrus"
 )
 
 var SvcContext *ServiceContext
 
 type ServiceContext struct {
 	Grpc *GrpcContext
-	Log  *zap.Logger
+	Log  *logrus.Entry
 }
 
 func NewContext(c *config.Config) *ServiceContext {
 	grpc := GrpcInit(c)
 	return &ServiceContext{
 		Grpc: grpc,
-		Log:  zap.NewExample(),
+		Log:  log.GetLogEntry(c.Logger.FilePath, c.Logger.FileName),
 	}
 }

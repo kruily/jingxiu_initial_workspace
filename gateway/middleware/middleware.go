@@ -25,11 +25,7 @@ type Middleware struct {
 var registerList []Middleware
 
 func register(f func() gin.HandlerFunc, b bool, s int) {
-	registerList = append(registerList, Middleware{
-		Func: f,
-		Use:  b,
-		Sort: s,
-	})
+	registerList = append(registerList, Middleware{f, b, s})
 }
 
 // 希尔排序
