@@ -1,6 +1,6 @@
 Gateway:
   ServerName: jingxiu-cli-server
-  Version: v0.3.2 #当前版本号为模板版本号，可自定义
+  Version: v0.3.3 #当前版本号为模板版本号，可自定义
   Listen: 127.0.0.1:8000
 
 Logger:

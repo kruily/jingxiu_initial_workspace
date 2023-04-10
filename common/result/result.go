@@ -13,7 +13,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-var _ Result = (*res)(nil)
+var _ Result = (*Res)(nil)
 
 type Result interface {
 	// i 为了避免被其他包实现
@@ -30,31 +30,31 @@ type Result interface {
 	Response(*gin.Context)
 }
 
-type res struct {
+type Res struct {
 	Code int         `json:"code"`         // 业务编码
 	Msg  string      `json:"msg"`          // 错误描述
 	Data interface{} `json:"data"`         // 成功时返回的数据
 	ID   string      `json:"id,omitempty"` // 当前请求的唯一ID，便于问题定位，忽略也可以
 }
 
-func (e *res) i() {}
+func (e *Res) i() {}
 
-func (e *res) WithData(data interface{}) Result {
+func (e *Res) WithData(data interface{}) Result {
 	e.Data = data
 	return e
 }
 
-func (e *res) WithID(id string) Result {
+func (e *Res) WithID(id string) Result {
 	e.ID = id
 	return e
 }
-func (e *res) WithMsg(msg string) Result {
+func (e *Res) WithMsg(msg string) Result {
 	e.Msg = msg
 	return e
 }
 
 // ToString 返回 JSON 格式的错误详情
-func (e *res) ToString() string {
+func (e *Res) ToString() string {
 	err := &struct {
 		Code int         `json:"code"`
 		Msg  string      `json:"msg"`
@@ -71,12 +71,12 @@ func (e *res) ToString() string {
 	return string(raw)
 }
 
-func (e *res) Response(c *gin.Context) {
+func (e *Res) Response(c *gin.Context) {
 	c.JSONP(e.Code, e)
 }
 
 func NewResult(code int, msg string) Result {
-	return &res{
+	return &Res{
 		Code: code,
 		Msg:  msg,
 		Data: nil,
