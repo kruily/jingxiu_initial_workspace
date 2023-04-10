@@ -19,7 +19,7 @@ import (
 )
 
 func init() {
-	register(Logger, true, 0)
+	//register(Logger, true, 0)
 }
 
 func Logger() gin.HandlerFunc {
