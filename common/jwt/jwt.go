@@ -12,7 +12,6 @@ import (
 	"fmt"
 	"gateway/config"
 	"github.com/gin-gonic/gin"
-	"github.com/golang/protobuf/ptypes/timestamp"
 	"time"
 
 	jwt "github.com/dgrijalva/jwt-go"
@@ -25,11 +24,17 @@ type Claims struct {
 }
 
 func GenerateToken(Jwtkey string, jwtSecret []byte) (string, error) {
-	t := timestamp.Timestamp{Seconds: time.Now().Add(72 * time.Hour).Unix()}
+	num := time.Duration(config.C.Jwt.Expire)
+	var mp = map[string]time.Duration{
+		"s": num * time.Second,
+		"m": num * time.Minute,
+		"h": num * time.Hour,
+	}
+	t := time.Now().Add(mp[config.C.Jwt.Unit])
 	claims := Claims{
 		Jwtkey,
 		jwt.StandardClaims{
-			ExpiresAt: t.GetSeconds(),
+			ExpiresAt: t.Unix(),
 			Issuer:    "jingxiu@center",
 		},
 	}

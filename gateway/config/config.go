@@ -46,7 +46,8 @@ type (
 	}
 	JWT struct {
 		Secret string `yaml:"Secret"`
-		Expire string `yaml:"Expire"`
+		Expire int64  `yaml:"Expire"`
+		Unit   string `yaml:"Unit"`
 	}
 	Logger struct {
 		FilePath string `yaml:"FilePath"`
